@@ -8,7 +8,13 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}/app.js"
+            "program": "${workspaceRoot}/app.js",
+            "osx": {
+                "command": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+            },
+            "args": [
+                "http://localhost:3000"
+            ]
         },
         {
             "type": "node",
