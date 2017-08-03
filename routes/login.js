@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
         querystring.stringify({
             client_id: auth.thingPlus.clientId,
             response_type: 'code',
-            redirect_uri: auth.thingPlus.redirectUri
+            redirect_uri: auth.thingPlus.redirectUri(req.headers.host)
         })
     )
 });

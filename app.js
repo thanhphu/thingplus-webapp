@@ -1,5 +1,4 @@
 const express = require('express');
-const http = require('http');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
@@ -45,11 +44,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-var server = http.createServer(app)
-
-server.listen(app.get('port'), function () {
-  console.log('Web server listening on port ' + app.get('port'))
-})
 
 module.exports = app;

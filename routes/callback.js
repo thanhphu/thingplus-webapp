@@ -10,9 +10,9 @@ router.get('/', function (req, response, next) {
 
     var options = {
         "method": "POST",
-        "hostname": "api.thingplus.net",
+        "hostname": auth.thingPlus.apiHost,
         "port": null,
-        "path": "/v2/oauth2/token",
+        "path": auth.thingPlus.accessTokenUri,
         "headers": {
             "content-type": "application/json"
         }
@@ -26,9 +26,9 @@ router.get('/', function (req, response, next) {
         });
 
         res.on("end", function () {
-            var body = Buffer.concat(chunks);
-            console.log(body.toString());
-            response.send(body.toString());
+            var body = Buffer.concat(chunks).toString();
+            var json = JSON.parse(body);        
+            response.send(json.access_token);
             response.end();            
         });
     });
@@ -37,7 +37,7 @@ router.get('/', function (req, response, next) {
         code: req.query.code,
         client_id: auth.thingPlus.clientId,
         client_secret: auth.thingPlus.clientSecret,
-        redirect_uri: auth.thingPlus.redirectUri,
+        redirect_uri: auth.thingPlus.redirectUri(req.headers.host),
         grant_type: 'authorization_code'
     }));
     postRequest.end();
