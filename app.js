@@ -4,8 +4,6 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const redis = require('redis');
-const session = require('./session');
 const auth = require('./auth');
 const app = express();
 
@@ -45,8 +43,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// Session storage in redis
-app.use(session);
 
 module.exports = app;
