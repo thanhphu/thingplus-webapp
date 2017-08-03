@@ -53,9 +53,6 @@ app.use(function(err, req, res, next) {
 
 var server = http.createServer(app)
  
-// Reload code here 
-reload(app);
- 
 server.listen(app.get('port'), function () {
   console.log('Web server listening on port ' + app.get('port'))
 })
