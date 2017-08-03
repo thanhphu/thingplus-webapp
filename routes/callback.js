@@ -1,10 +1,13 @@
-var auth = require('../auth');
+const auth = require('../auth');
+const session = require('../session');
+const http = require("https");
 const querystring = require('querystring');
-var http = require("https");
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET login page */
+router.use(session);
+
+/* GET callback page */
 router.get('/', function (req, response, next) {
     var http = require("https");
 
@@ -27,9 +30,9 @@ router.get('/', function (req, response, next) {
 
         res.on("end", function () {
             var body = Buffer.concat(chunks).toString();
-            var json = JSON.parse(body);        
-            response.send(json.access_token);
-            response.end();            
+            var json = JSON.parse(body);
+            req.session.token = json.access_token;
+            response.redirect('/');
         });
     });
 
