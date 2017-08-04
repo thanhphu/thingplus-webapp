@@ -7,11 +7,6 @@ block content
       p Welcome, #{user.fullName}
       p
         a.btn.btn-default(href="/gateways") View gateways
-      p Token detected as:
-      table.table.table-bordered
-        tbody
-          tr
-            td #{user.token}
       button.btn.btn-default(type="button") Logout
     else
       p Welcome to my app, ready to get started?
@@ -20,5 +15,5 @@ block content
       p
         span.small Don't have an account?
         span &nbsp;
-        a.btn.btn-default(href="/register") Register now
+        a.btn(href="/register") Register now
       
