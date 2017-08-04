@@ -16,9 +16,10 @@ router.get('/', function (req, res, next) {
 
 function getUser(req) {
   if (req.session && req.session.token) {
+    console.log('username=' + req.session.userName);
     return {
       token: req.session.token.substring(0,50),
-      fullName: 'John Smith'
+      fullName: req.session.userName
     };
   } else {
     return null;

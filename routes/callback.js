@@ -1,6 +1,7 @@
 const auth = require('../auth');
 const session = require('../session');
 const http = require("https");
+const request = require("request");
 const querystring = require('querystring');
 const express = require('express');
 const router = express.Router();
@@ -30,7 +31,8 @@ router.get('/', function (req, response, next) {
             var body = Buffer.concat(chunks).toString();
             var json = JSON.parse(body);
             req.session.token = json.access_token;
-            response.redirect('/');
+            saveUserName(req.session.token, req, response);
+            // response.redirect('/');
         });
     });
 
@@ -43,5 +45,20 @@ router.get('/', function (req, response, next) {
     }));
     postRequest.end();
 });
+
+function saveUserName(token, req, res) {
+    var options = {
+        url: 'https://api.thingplus.net/v2/users/me',
+        auth: {
+            bearer: req.session.token
+        },
+        json:true,
+    }
+    request.get(options, function(error, mesage, body) {
+        req.session.userName = body.data.loginId;
+        req.session.save();
+        res.redirect('/');
+    });
+}
 
 module.exports = router;
