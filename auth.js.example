@@ -1,0 +1,23 @@
+const apiHost = 'api.thingplus.net';
+module.exports = {
+    thingPlus: {
+        clientId: '**FILL IN**',
+        clientSecret: '**FILL IN**',
+        apiHost: apiHost,
+        accessTokenUri: '/v2/oauth2/token',
+        authorizationUri: 'https://' + apiHost + '/v2/oauth2/authorize',
+        redirectUri: function (host) {
+            return 'http://' + host + '/callback'
+        },
+        scopes: [
+            "user-profile-read",
+            "gateway",
+            "gateway-update",
+            "timeline-read",
+            "tag",
+            "rule-read",
+            "service-read",
+            "site-read"
+        ]
+    }
+}
