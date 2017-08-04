@@ -1,23 +1,26 @@
 extends layout
 
 block content
-  div.container
-    div.jumbotron
-      h1 Hello!
-
-      if user
-        p Welcome, #{user.fullName}
-        p
-          a.small(href="profile") Edit my profile
-        form(action='/logout', method='POST')
-          button.btn.btn-default(type="submit") Logout
-      else
-        p Welcome to my app, ready to get started?
-        p
-          a.btn.btn-primary(href="/login") Login now
-        p
-          span.small Don't have an account?
-          span &nbsp;
-          a.small(href="/register") Register now
-        p Host detected as: #{host}
-        p Token detected as: #{token}
+  div.jumbotron
+    h1 Hello!
+    p Host detected as: #{host}
+  div.container-fluid
+    if user
+      p Welcome, #{user.fullName}
+      p
+        a.small(href="#") Edit my profile
+      p Token detected as:
+      table.table.table-bordered
+        tbody
+          tr
+            td #{user.token}
+      button.btn.btn-default(type="button") Logout
+    else
+      p Welcome to my app, ready to get started?
+      p
+        a.btn.btn-primary(href="/login") Login now
+      p
+        span.small Don't have an account?
+        span &nbsp;
+        a.btn.btn-default(href="/register") Register now
+      

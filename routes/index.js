@@ -6,18 +6,22 @@ router.use(session);
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  var userObj = getUser(req);
   res.render('index', {
     title: 'Express',
     host: req.headers.host,
-    token: testSession(req)
+    user: getUser(req)
   });
 });
 
-function testSession(req) {
+function getUser(req) {
   if (req.session && req.session.token) {
-    return req.session.token;
+    return {
+      token: req.session.token,
+      fullName: 'John Smith'
+    };
   } else {
-    return 'Not logged in';
+    return null;
   }
 }
 

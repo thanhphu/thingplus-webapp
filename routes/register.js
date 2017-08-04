@@ -3,9 +3,7 @@ var router = express.Router();
 
 /* GET register page */
 router.get('/', function (req, res, next) {
-    res.render('page', {
-        title: 'Register'
-    });
+    res.redirect('https://thingplus.net/signup/');
 });
 
 module.exports = router;
