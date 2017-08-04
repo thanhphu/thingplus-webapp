@@ -9,8 +9,6 @@ router.use(session);
 
 /* GET callback page */
 router.get('/', function (req, response, next) {
-    var http = require("https");
-
     var options = {
         "method": "POST",
         "hostname": auth.thingPlus.apiHost,
