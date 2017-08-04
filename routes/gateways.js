@@ -4,21 +4,19 @@ const router = express.Router();
 
 router.use(session);
 
-/* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', {
-    title: 'Hello!',
-    host: req.headers.host,
-    user: getUser(req)
+  res.render('page', {
+    title: 'Gateways',
+    items: getGateways(req)
   });
 });
 
-function getUser(req) {
+function getGateways(req) {
   if (req.session && req.session.token) {
-    return {
-      token: req.session.token.substring(0,50),
-      fullName: 'John Smith'
-    };
+    return [{
+      href: 'Gateway 1',
+      text: 'Gateway 1'
+    }];
   } else {
     return null;
   }

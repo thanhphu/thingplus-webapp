@@ -1,14 +1,12 @@
 extends layout
 
 block content
-  div.jumbotron
-    h1 Hello!
-    p Host detected as: #{host}
   div.container-fluid
+    p Host detected as: #{host}
     if user
       p Welcome, #{user.fullName}
       p
-        a.small(href="#") Edit my profile
+        a.btn.btn-default(href="gateways") View gateways
       p Token detected as:
       table.table.table-bordered
         tbody
