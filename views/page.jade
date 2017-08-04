@@ -2,7 +2,7 @@ extends layout
 
 block content
     div.container-fluid        
-        ul
-        each item in items    
-            li
-            a(href=#{item.href}) #{item.text}
+        ul.nav.nav-pills
+            each item in items    
+                li(role='presentation')
+                    a(href=item.href) #{item.text}
