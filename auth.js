@@ -1,8 +1,8 @@
 const apiHost = 'api.thingplus.net';
 module.exports = {
     thingPlus: {
-        clientId: '**FILL IN**',
-        clientSecret: '**FILL IN**',
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
         apiHost: apiHost,
         accessTokenUri: '/v2/oauth2/token',
         authorizationUri: 'https://' + apiHost + '/v2/oauth2/authorize',
