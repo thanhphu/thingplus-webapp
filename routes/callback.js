@@ -1,9 +1,9 @@
 const auth = require('../auth');
-const session = require('../session');
-const http = require("https");
-const request = require("request");
-const querystring = require('querystring');
 const express = require('express');
+const http = require("https");
+const querystring = require('querystring');
+const request = require("request");
+const session = require('../session');
 const router = express.Router();
 
 router.use(session);

@@ -1,11 +1,12 @@
 require('dotenv').config()
+const auth = require('./auth');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const express = require('express');
-const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const auth = require('./auth');
+const path = require('path');
+
 const app = express();
 
 app.set('port', process.env.PORT || 3000)
@@ -22,10 +23,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
+app.use('/api', require('./routes/api'));
 app.use('/login', require('./routes/login'));
+app.use('/logout', require('./routes/logout'));
 app.use('/register', require('./routes/register'));
 app.use('/callback', require('./routes/callback'));
+app.use('/gateways', require('./routes/gateways'));
 app.use('/gateways', require('./routes/gateways'));
 
 // catch 404 and forward to error handler
