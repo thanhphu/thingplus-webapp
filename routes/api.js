@@ -1,5 +1,7 @@
+const client = require('redis').createClient(process.env.REDIS_URL);
 const express = require('express');
 const session = require('../session');
+
 const router = express.Router();
 
 function isAuthorized(req) {
@@ -20,7 +22,11 @@ router.get('/trigger/:triggerid', function(req, res, next) {
 router.post('/trigger', function(req, res, next) {
 });
 
+router.get('/sensors/:carId', function(req, res, next) {
+});
+
 router.get('/sensor/:sensorid', function(req, res, next) {
+  
 });
 
 router.post('/sensor', function(req, res, next) {
