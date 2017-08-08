@@ -44,12 +44,11 @@ function isAuthorized(req, res) {
   return false;
 }
 
+initDb();
+
 router.get('/', function (req, res, next) {
   // TODO Test function, redirect to home on completion
   res.sendStatus(200);
-  res.send('OK');
-  initDb();
-  console.log('Cool ' + trains.count());
 });
 
 router.post('/trigger', function (req, res, next) {

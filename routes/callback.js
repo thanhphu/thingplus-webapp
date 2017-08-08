@@ -48,7 +48,7 @@ router.get('/', function (req, response, next) {
 
 function saveUserName(token, req, res) {
     var options = {
-        url: 'https://api.thingplus.net/v2/users/me',
+        url: auth.thingPlus.userUri,
         auth: {
             bearer: req.session.token
         },
