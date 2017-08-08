@@ -36,10 +36,11 @@ function initDb() {
   }
 }
 
-function isAuthorized(req) {
+function isAuthorized(req, res) {
   if (req.session && req.session.token) {
     return true;
   }
+  res.sendStatus(401);
   return false;
 }
 
@@ -49,48 +50,66 @@ router.get('/', function (req, res, next) {
   res.send('OK');
   initDb();
   console.log('Cool ' + trains.count());
-  res.end();
 });
 
 router.post('/trigger', function (req, res, next) {
-  var result = cars.find({ 'sensors': { '$contains': req.params.sensorId } })
-  if (result) {
+  // TODO Enable on production
+  // if (!isAuthorized(req, res)) {
+  //   return;
+  // }
+  var result = cars.find({ 'sensors': { '$contains': parseInt(req.params.sensorId, 10) } })
+  if (result.length === 1) {
     if (req.params.type === "IN") {
       result.count++;
-      res.sendStatus(204);
-      res.end();
+      res.status(204).end();
       return;
     } else if (req.params.type === "OUT") {
       result.count--;
-      res.sendStatus(204);
-      res.end();
+      res.status(204).end();
       return;
     }
   }
-  res.sendStatus(403);
-  res.end();
+  res.sendStatus(400);
 });
 
 router.get('/sensors/:carId', function (req, res, next) {
-  var result = cars.find({ '_id': carId })
-  if (result) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(result.sensors);
-    res.end();
+  var result = cars.find({ '_id': parseInt(req.params.carId, 10) })
+  if (result.length === 1) {
+    console.log(result);
+    res.json(result[0].sensors);
     return;
   }
-  res.sendStatus(403);
-  res.end();
-  return;
+  res.sendStatus(400);
 });
 
-router.get('/sensor/:sensorid', function (req, res, next) {
+router.get('/sensor/:sensorId', function (req, res, next) {
+  var result = cars.find({ 'sensors': { '$contains': parseInt(req.params.sensorId, 10) } })
+  if (result.length === 1) {
+    if (req.params.type === "in") {
+      result.count++;
+      res.status(204).end();
+      return;
+    } else if (req.params.type === "out") {
+      result.count--;
+      res.status(204).end();
+      return;
+    }
+  }
+  res.sendStatus(400);
 });
 
 router.post('/sensor', function (req, res, next) {
 });
 
-router.get('/train', function (req, res, next) {
+router.put('/sensor', function (req, res, next) {
+});
+
+router.get('/cars', function (req, res, next) {
+  res.json(cars);
+});
+
+router.get('/trains', function (req, res, next) {
+  res.json(trains);
 });
 
 router.get('/train/:trainid', function (req, res, next) {
