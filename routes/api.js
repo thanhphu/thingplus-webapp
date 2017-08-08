@@ -1,4 +1,3 @@
-const client = require('redis').createClient(process.env.REDIS_URL);
 const express = require('express');
 const session = require('../session');
 
