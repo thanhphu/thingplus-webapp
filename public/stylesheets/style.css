@@ -1,21 +1,50 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+#newtrain {
+    fill: white;
+    color: #228B22;
+    list-style-type: none;
+    margin: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #228B22;
+    width: 300px;
 }
 
 ul.train {
-  list-style-type: none; 
-  margin: 0; 
-  padding: 0; 
-  margin-bottom: 10px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
 }
 
-.train>li {
-  margin: 5px; 
-  padding: 5px; 
-  width: 150px;
+.train>li,
+li#draggable {
+    border: 1px solid #00B7FF;
+    margin: 5px;
+    padding: 5px;
+    width: 300px;
+}
+
+.car {
+    margin: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+    list-style-type: none;
+    border: 1px solid #D23B3B;
+}
+
+.newcar {
+    margin: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+    list-style-type: none;
+    border: 1px solid #228B22;
 }

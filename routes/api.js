@@ -22,8 +22,8 @@ function initDb() {
     trains = db.addCollection(dbNames.trains);
 
     trains.insert({ _id: 1000, name: "신림-성수", cars: [2000, 2001, 2002], isRunning: true });
-    trains.insert({ _id: 1002, name: "잠실-을지로3가", isRunning: false });
-    trains.insert({ _id: 1004, name: "홍대입구-서울대입구", isRunning: false });
+    trains.insert({ _id: 1002, name: "잠실-을지로3가", cars: [], isRunning: false });
+    trains.insert({ _id: 1004, name: "홍대입구-서울대입구", cars: [], isRunning: false });
   }
   cars = db.getCollection(dbNames.cars);
   if (cars === null) {
@@ -159,9 +159,7 @@ router.get('/trains', function (req, res, next) {
 // get a train, list cars in a train
 router.get('/train/:trainId', function (req, res, next) {
   var trainId = parseInt(req.params.trainId, 10);
-  res.json(trains.filter(function (train) {
-    return (train._id = trainId);
-  }));
+  res.json(trains.find({'_id': trainId}));
 });
 
 // edit a train's info
