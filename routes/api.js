@@ -13,8 +13,7 @@ const dbNames = {
   trains: "trains",
   cars: "cars",
 };
-var trains,
-  cars;
+var trains, cars;
 
 // implement the autoloadback referenced in loki constructor
 function initDb() {
@@ -22,9 +21,9 @@ function initDb() {
   if (trains === null) {
     trains = db.addCollection(dbNames.trains);
 
-    trains.insert({ _id: 1000, name: "신림-성수", cars: [2000, 2001, 2002] });
-    trains.insert({ _id: 1002, name: "잠실-을지로3가" });
-    trains.insert({ _id: 1004, name: "홍대입구-서울대입구" });
+    trains.insert({ _id: 1000, name: "신림-성수", cars: [2000, 2001, 2002], isRunning: true });
+    trains.insert({ _id: 1002, name: "잠실-을지로3가", isRunning: false });
+    trains.insert({ _id: 1004, name: "홍대입구-서울대입구", isRunning: false });
   }
   cars = db.getCollection(dbNames.cars);
   if (cars === null) {
@@ -51,14 +50,16 @@ router.get('/', function (req, res, next) {
   res.sendStatus(200);
 });
 
+
+// Triggered when people going in or out of a car 
 router.post('/trigger', function (req, res, next) {
   // TODO Enable on production
   // if (!isAuthorized(req, res)) {
   //   return;
   // }
-  var result = cars.find({ 'sensors': { '$contains': parseInt(req.params.sensorId, 10) } })
+  var result = cars.find({ 'sensors': { '$contains': parseInt(req.body.sensorId, 10) } })
   if (result.length === 1) {
-    if (req.params.type === "IN") {
+    if (req.body.type === "IN") {
       result.count++;
       res.status(204).end();
       return;
@@ -71,6 +72,8 @@ router.post('/trigger', function (req, res, next) {
   res.sendStatus(400);
 });
 
+
+// Query sensors inside a train car
 router.get('/sensors/:carId', function (req, res, next) {
   var result = cars.find({ '_id': parseInt(req.params.carId, 10) })
   if (result.length === 1) {
@@ -81,42 +84,38 @@ router.get('/sensors/:carId', function (req, res, next) {
   res.sendStatus(400);
 });
 
-router.get('/sensor/:sensorId', function (req, res, next) {
-  var result = cars.find({ 'sensors': { '$contains': parseInt(req.params.sensorId, 10) } })
-  if (result.length === 1) {
-    if (req.params.type === "in") {
-      result.count++;
-      res.status(204).end();
-      return;
-    } else if (req.params.type === "out") {
-      result.count--;
-      res.status(204).end();
-      return;
-    }
-  }
-  res.sendStatus(400);
-});
-
+// edit sensor, move it to new car
 router.post('/sensor', function (req, res, next) {
 });
 
+// create new sensor
 router.put('/sensor', function (req, res, next) {
 });
 
-router.get('/cars', function (req, res, next) {
+// get car info, number of people inside a car
+router.get('/cars/:carId', function (req, res, next) {
   res.json(cars);
 });
 
+// edit a car, move it to a different train
+router.post('/car', function (req, res, next) {
+});
+
+// list trains
 router.get('/trains', function (req, res, next) {
   res.json(trains);
 });
 
+// get a train, list cars in a train
 router.get('/train/:trainid', function (req, res, next) {
+  // Implement later
 });
 
+// edit a train's info
 router.post('/train', function (req, res, next) {
 });
 
+// create a train
 router.put('/train', function (req, res, next) {
 });
 

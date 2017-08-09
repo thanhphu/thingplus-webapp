@@ -13,14 +13,19 @@ module.exports = {
         userUri: 'https://' + apiHost + '/v2/users/me',
         signupUri: 'https://thingplus.net/signup/',
         scopes: [
+            "user-profile",
             "user-profile-read",
             "gateway",
+            "gateway-read",
             "gateway-update",
             "timeline-read",
             "tag",
+            "tag-read",
+            "rule",
             "rule-read",
             "service-read",
-            "site-read"
+            "site-read",
+            "billing-read"
         ]
     }
 }
