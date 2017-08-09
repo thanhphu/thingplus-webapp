@@ -35,19 +35,17 @@ function initDb() {
   }
 }
 
-function isAuthorized(req, res) {
-  if (req.session && req.session.token) {
-    return true;
-  }
-  res.sendStatus(401);
-  return false;
-}
-
 initDb();
+
 // TODO Enable on production
-// if (!isAuthorized(req, res)) {
-//   return;
-// }
+// Require authentication to call api
+// router.all('*', function(req,res,next) {
+//   if (req.session && req.session.token) {
+//     next();
+//   } else {
+//     res.sendStatus(401);
+//   }
+// });
 
 router.get('/', function (req, res, next) {
   // TODO Test function, redirect to home on completion
