@@ -1,3 +1,4 @@
+const reloadTimeout = 5000;
 var trains;
 var cars;
 
@@ -10,13 +11,14 @@ function loadCars(trainId) {
             var trainList = data;
             trainList.forEach((train) => {
                 if (train.cars) {
-                    train.cars.forEach((carId) => {
-                        console.log('#cars' + trainId);
+                    for (i = 0; i < train.cars.length; i++) {
+                        carId = train.cars[i];
+                        count = train.counts[i];
                         $('#cars' + trainId)
                             .append("<li class='car'>" +
-                                "<a href='#'>" + carId + "</a>" +
+                                "<a href='#'>" + carId + ":" + count + "</a>" +
                                 "</li>");
-                    });
+                    }
                 }
             });
         }
@@ -29,6 +31,7 @@ function loadTrains() {
         url: '/api/trains',
         dataType: 'json',
         success: function(data) {
+            $('#trains').empty();
             trains = data.data;
             trains.forEach((item) => {
                 $('#trains')
@@ -41,6 +44,7 @@ function loadTrains() {
             });
         }
     });
+    setTimeout(loadTrains, reloadTimeout);
 }
 
 $(function() {

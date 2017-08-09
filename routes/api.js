@@ -60,11 +60,13 @@ router.post('/trigger', function (req, res, next) {
   var result = cars.find({ 'sensors': { '$contains': parseInt(req.body.sensorId, 10) } })
   if (result.length === 1) {
     if (req.body.type === "IN") {
-      result.count++;
+      result[0].count++;
       res.status(204).end();
       return;
-    } else if (req.params.type === "OUT") {
-      result.count--;
+    } else if (req.body.type === "OUT") {
+      if (result[0].count > 0) {
+        result[0].count--;
+      }
       res.status(204).end();
       return;
     }
@@ -140,15 +142,14 @@ router.delete('/sensor', function (req, res, next) {
 // get car info, number of people inside a car
 router.get('/cars/:carId', function (req, res, next) {
   var carId = parseInt(req.params.carId, 10);
-  res.json(cars.filter(function (element) {
-    return (element._id === carId)
-  }));
+  res.json(cars.find({'_id': carId}));
 });
 
 // edit a car, move it to a different train
 router.post('/car', function (req, res, next) {
   var carId = parseInt(req.body.carId, 10);
   var trainId = parseInt(req.body.trainId, 10);
+  // TODO implement
 });
 
 // list trains
@@ -159,7 +160,17 @@ router.get('/trains', function (req, res, next) {
 // get a train, list cars in a train
 router.get('/train/:trainId', function (req, res, next) {
   var trainId = parseInt(req.params.trainId, 10);
-  res.json(trains.find({'_id': trainId}));
+  var trainInfo = trains.find({'_id': trainId});
+  trainInfo.forEach((train) => {
+    if (!train.cars) {
+      train.cars = [];
+    }
+    train.counts = train.cars.map((carId) => {
+      var foundCar = cars.find({'_id': carId});
+      return foundCar[0].count;
+    });
+  });
+  res.json(trainInfo);
 });
 
 // edit a train's info
