@@ -24,12 +24,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/index'));
 app.use('/api', require('./routes/api'));
+app.use('/callback', require('./routes/callback'));
+app.use('/gateways', require('./routes/gateways'));
 app.use('/login', require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
 app.use('/register', require('./routes/register'));
-app.use('/callback', require('./routes/callback'));
-app.use('/gateways', require('./routes/gateways'));
-app.use('/gateways', require('./routes/gateways'));
+app.use('/trains', require('./routes/trains'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

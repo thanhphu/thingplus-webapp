@@ -2,8 +2,8 @@ extends layout
 
 block content
     div.container-fluid        
-        p Your active gateways
-        div#gateways
+        p Your trains
+        ul#trains.train
         p
         a.btn.btn-primary(href='#', onclick='history.back()') Go back
-    script(src='/javascripts/gateways.js')
+    script(src='/javascripts/trains.js')
