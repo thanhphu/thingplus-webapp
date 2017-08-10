@@ -1,4 +1,5 @@
 const apiHost = 'api.testtp.thingbine.com';
+const baseUri = 'https://' + apiHost + '/v2/';
 module.exports = {
     thingPlus: {
         clientId: process.env.CLIENT_ID,
@@ -8,9 +9,10 @@ module.exports = {
         redirectUri: function (appAddress) {
             return 'http://' + appAddress + '/callback'
         },
-        authorizationUri: 'https://' + apiHost + '/v2/oauth2/authorize',        
-        gatewaysUri: 'https://' + apiHost + '/v2/gateways',
-        userUri: 'https://' + apiHost + '/v2/users/me',
+        baseUri: baseUri,
+        authorizationUri: baseUri + 'oauth2/authorize',        
+        gatewaysUri: baseUri + 'gateways',
+        userUri: baseUri + 'users/me',
         signupUri: 'https://thingplus.net/signup/',
         scopes: [
             "user-profile",

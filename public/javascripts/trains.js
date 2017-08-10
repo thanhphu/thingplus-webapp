@@ -16,7 +16,7 @@ function loadCars(trainId) {
                         count = train.counts[i];
                         $('#cars' + trainId)
                             .append("<li class='car'>" +
-                                "<a href='#'>" + carId + ":" + count + "</a>" +
+                                "<a href='#'>Car " + (i + 1) + ":" + count + "</a>" +
                                 "</li>");
                     }
                 }
@@ -38,7 +38,7 @@ function loadTrains() {
                     .append("<li>" +
                         "<span class='glyphicon glyphicon-blackboard' aria-hidden='true'></span>" +
                         item.name +
-                        "<ul id='cars" + item._id + "'></ul>" +
+                        "<ul id='cars" + item._id + "' class='cars'></ul>" +
                         "</li>");
                 loadCars(item._id);
             });
@@ -48,6 +48,9 @@ function loadTrains() {
 }
 
 $(function() {
+    $(".cars").sortable({
+        revert: true
+    });
     $("#trains").sortable({
         revert: true
     });

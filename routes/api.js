@@ -1,5 +1,7 @@
+const auth = require('../auth');
 const express = require('express');
 const loki = require('lokijs');
+const request = require("request");
 const session = require('../session');
 
 var db = new loki("trains.db", {
@@ -47,11 +49,32 @@ initDb();
 //   }
 // });
 
-router.get('/', function (req, res, next) {
-  // TODO Test function, redirect to home on completion
-  res.sendStatus(200);
+// forward all requests to /api/forward to thing+
+const forwardAddr = '/forward/';
+router.all(forwardAddr + '*', function (req, res, next) {
+  var functionName = req.url.substring(forwardAddr.length);
+  var options = {
+    url: auth.thingPlus.baseUri + functionName,
+    auth: {
+      bearer: req.session.token
+    },
+    json: true,
+    method: req.method,
+    body: req.body
+  }
+  request(options, function (error, message, body) {
+    if (error) {
+      res.sendStatus(400);
+      return;
+    }
+    res.json(body.data);
+    res.end();
+  })
 });
 
+router.get('/', function (req, res, next) {
+  res.redirect('/');
+});
 
 // Triggered when people going in or out of a car 
 router.post('/trigger', function (req, res, next) {
@@ -140,7 +163,7 @@ router.delete('/sensor', function (req, res, next) {
 // get car info, number of people inside a car
 router.get('/cars/:carId', function (req, res, next) {
   var carId = parseInt(req.params.carId, 10);
-  res.json(cars.find({'_id': carId}));
+  res.json(cars.find({ '_id': carId }));
 });
 
 // edit a car, move it to a different train
@@ -158,13 +181,13 @@ router.get('/trains', function (req, res, next) {
 // get a train, list cars in a train
 router.get('/train/:trainId', function (req, res, next) {
   var trainId = parseInt(req.params.trainId, 10);
-  var trainInfo = trains.find({'_id': trainId});
+  var trainInfo = trains.find({ '_id': trainId });
   trainInfo.forEach((train) => {
     if (!train.cars) {
       train.cars = [];
     }
     train.counts = train.cars.map((carId) => {
-      var foundCar = cars.find({'_id': carId});
+      var foundCar = cars.find({ '_id': carId });
       return foundCar[0].count;
     });
   });
