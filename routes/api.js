@@ -77,6 +77,25 @@ router.get('/', function (req, res, next) {
 });
 
 // Triggered when people going in or out of a car 
+router.get('/trigger/:sensorId/:type', function (req, res, next) {
+  var result = cars.find({ 'sensors': { '$contains': parseInt(req.params.sensorId, 10) } })
+  if (result.length === 1) {
+    if (req.params.type === "IN") {
+      result[0].count++;
+      res.status(204).end();
+      return;
+    } else if (req.params.type === "OUT") {
+      if (result[0].count > 0) {
+        result[0].count--;
+      }
+      res.status(204).end();
+      return;
+    }
+  }
+  res.sendStatus(400);
+});
+
+// Triggered when people going in or out of a car 
 router.post('/trigger', function (req, res, next) {
   var result = cars.find({ 'sensors': { '$contains': parseInt(req.body.sensorId, 10) } })
   if (result.length === 1) {

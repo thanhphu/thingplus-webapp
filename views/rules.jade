@@ -18,5 +18,6 @@ block content
                     th Actions
                     th Severity
         p
-        a.btn.btn-primary(href='#', onclick='history.back()') Go back
+            a.btn.btn-primary(href='/') Go back
+            a.btn.btn-default(href='#', onclick='javascript:loadRules();') Refresh
     script(src='/javascripts/rules.js')

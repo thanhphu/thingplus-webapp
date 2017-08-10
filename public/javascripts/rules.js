@@ -2,6 +2,7 @@ const reloadTimeout = 5000;
 
 function loadRules() {
     $.getJSON('/api/forward/rules', function (data) {
+        $("tbody").empty();
         var tbl_body = document.createElement("tbody");
         var odd_even = false;
         $.each(data, function () {
