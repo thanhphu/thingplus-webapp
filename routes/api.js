@@ -77,7 +77,7 @@ router.get('/', function (req, res, next) {
 });
 
 // Triggered when people going in or out of a car 
-router.get('/trigger/:sensorId/:type', function (req, res, next) {
+router.post('/trigger/:sensorId/:type', function (req, res, next) {
   var result = cars.find({ 'sensors': { '$contains': parseInt(req.params.sensorId, 10) } })
   if (result.length === 1) {
     if (req.params.type === "IN") {
