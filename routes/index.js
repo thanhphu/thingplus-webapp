@@ -10,7 +10,8 @@ router.get('/', function (req, res, next) {
   res.render('index', {
     title: 'Hello!',
     host: req.headers.host,
-    user: getUser(req)
+    user: getUser(req),
+    appName: 'subway-monitoring'
   });
 });
 
