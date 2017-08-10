@@ -29,6 +29,7 @@ app.use('/gateways', require('./routes/gateways'));
 app.use('/login', require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
 app.use('/register', require('./routes/register'));
+app.use('/rules', require('./routes/rules'));
 app.use('/trains', require('./routes/trains'));
 
 // catch 404 and forward to error handler

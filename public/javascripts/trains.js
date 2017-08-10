@@ -7,7 +7,7 @@ function loadCars(trainId) {
         type: 'GET',
         url: '/api/train/' + trainId,
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             var trainList = data;
             trainList.forEach((train) => {
                 if (train.cars) {
@@ -16,8 +16,8 @@ function loadCars(trainId) {
                         count = train.counts[i];
                         $('#cars' + trainId)
                             .append("<li class='car'>" +
-                                "<a href='#'>Car " + (i + 1) + ":" + count + "</a>" +
-                                "</li>");
+                            "<a href='#'>Car " + (i + 1) + ":" + count + "</a>" +
+                            "</li>");
                     }
                 }
             });
@@ -30,24 +30,27 @@ function loadTrains() {
         type: 'GET',
         url: '/api/trains',
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             $('#trains').empty();
             trains = data.data;
             trains.forEach((item) => {
                 $('#trains')
                     .append("<li>" +
-                        "<span class='glyphicon glyphicon-blackboard' aria-hidden='true'></span>" +
-                        item.name +
-                        "<ul id='cars" + item._id + "' class='cars'></ul>" +
-                        "</li>");
+                    "<span class='glyphicon glyphicon-blackboard' aria-hidden='true'></span>" +
+                    item.name +
+                    "<ul id='cars" + item._id + "' class='cars'></ul>" +
+                    "</li>");
                 loadCars(item._id);
+            });
+            $(".cars").sortable({
+                revert: true
             });
         }
     });
     setTimeout(loadTrains, reloadTimeout);
 }
 
-$(function() {
+$(function () {
     $(".cars").sortable({
         revert: true
     });

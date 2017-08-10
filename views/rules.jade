@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    div.container-fluid        
+        p Your active rules
+        div#rules
+        p
+        a.btn.btn-primary(href='#', onclick='history.back()') Go back
+    script(src='/javascripts/rules.js')
