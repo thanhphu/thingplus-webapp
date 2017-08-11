@@ -10,7 +10,13 @@ function loadRules() {
             tbl_row.className = odd_even ? "odd" : "even";
             $.each(this, function (k, v) {
                 var cell = tbl_row.insertCell();
-                cell.appendChild(document.createTextNode(v.toString()));
+                var text = v.toString();
+                if (v instanceof Object) {
+                    text = JSON.stringify(v);
+                }
+                cell.appendChild(document.createTextNode(text));
+
+                
             })
             odd_even = !odd_even;
         })
@@ -22,6 +28,10 @@ $(function () {
     $("#rules").sortable({
         revert: true
     });
+    $("#accordion").accordion({
+        collapsible: true,
+        heightStyle: "content"
+    })
     $("ul, li").disableSelection();
     loadRules();
 });

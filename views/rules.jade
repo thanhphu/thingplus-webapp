@@ -2,24 +2,77 @@ extends layout
 
 block content
     div.container-fluid        
-        p Your active rules
-        table#rules-table.table.table-striped.table-bordered.table-hover
-            thead
-                tr
-                    th Template
-                    th Time
-                    th Description
-                    th User
-                    th Time
-                    th Name
-                    th ID
-                    th Status
-                    th Trigger
-                    th Actions
-                    th Severity
-                    th -
-                    th -                    
+        div#accordion
+            h2 Your active rules
+            div
+                p
+                    a.btn.refresh-button(href='#', onclick='javascript:loadRules();') Refresh
+                table#rules-table.table.table-striped.table-bordered.table-hover
+                    thead
+                        tr
+                            th Template
+                            th Time
+                            th Description
+                            th User
+                            th Time
+                            th Name
+                            th ID
+                            th Status
+                            th Trigger
+                            th Actions
+                            th Severity
+                            th -
+                            th -                    
+            h2 Add new rules        
+            div
+                p Test
+                form
+                    .form-group
+                        label(for='exampleInputEmail1') Email address
+                        input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
+                        small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
+                    .form-group
+                        label(for='exampleInputPassword1') Password
+                        input#exampleInputPassword1.form-control(type='password', placeholder='Password')
+                    .form-group
+                        label(for='exampleSelect1') Example select
+                        select#exampleSelect1.form-control
+                            option 1
+                            option 2
+                            option 3
+                            option 4
+                            option 5
+                    .form-group
+                        label(for='exampleSelect2') Example multiple select
+                        select#exampleSelect2.form-control(multiple='')
+                            option 1
+                            option 2
+                            option 3
+                            option 4
+                            option 5
+                    .form-group
+                        label(for='exampleTextarea') Example textarea
+                        textarea#exampleTextarea.form-control(rows='3')
+                    .form-group
+                        label(for='exampleInputFile') File input
+                        input#exampleInputFile.form-control-file(type='file', aria-describedby='fileHelp')
+                        small#fileHelp.form-text.text-muted
+                    fieldset.form-group
+                        legend Radio buttons
+                        .form-check
+                            label.form-check-label
+                                input#optionsRadios1.form-check-input(type='radio', name='optionsRadios', value='option1', checked='')
+                        .form-check
+                            label.form-check-label
+                                input#optionsRadios2.form-check-input(type='radio', name='optionsRadios', value='option2')
+                        .form-check.disabled
+                            label.form-check-label
+                                input#optionsRadios3.form-check-input(type='radio', name='optionsRadios', value='option3', disabled='')
+                    .form-check
+                        label.form-check-label
+                            input.form-check-input(type='checkbox')
+                    button.btn.btn-primary(type='submit') Submit
+        br
         p
             a.btn.btn-primary(href='/') Go back
-            a.btn.btn-default(href='#', onclick='javascript:loadRules();') Refresh
     script(src='/javascripts/rules.js')

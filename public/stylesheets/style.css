@@ -48,3 +48,19 @@ li#draggable {
     list-style-type: none;
     border: 1px solid #228B22;
 }
+
+#rules-table td {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#rules-table td:hover {
+    white-space: pre-wrap;
+    max-width: initial;
+}
+
+.refresh-button {
+    color: #ffffff;
+    border-color: #0275d8;
+}

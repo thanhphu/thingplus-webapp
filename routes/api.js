@@ -49,6 +49,10 @@ initDb();
 //   }
 // });
 
+router.get('/', function (req, res, next) {
+  res.redirect('/');
+});
+
 // forward all requests to /api/forward to thing+
 const forwardAddr = '/forward/';
 router.all(forwardAddr + '*', function (req, res, next) {
@@ -70,10 +74,6 @@ router.all(forwardAddr + '*', function (req, res, next) {
     res.json(body.data);
     res.end();
   })
-});
-
-router.get('/', function (req, res, next) {
-  res.redirect('/');
 });
 
 // Triggered when people going in or out of a car 
