@@ -1,7 +1,16 @@
 extends layout
 
 block content
-    div.container-fluid        
+    div.container-fluid
+        if (needAlert)
+            if (success)
+                div.alert.alert-success(role='alert')
+                    strong Success!
+                    | Rule has been added
+            else
+                div.alert.alert-danger(role='alert')
+                    strong Failure
+                    | Rule could not be added
         div#accordion
             h2 Your active rules
             div
@@ -23,54 +32,72 @@ block content
                             th Severity
                             th -
                             th -                    
-            h2 Add new rules        
+            h2 Add new rule
             div
-                p Test
-                form
+                form(method='POST')
                     .form-group
-                        label(for='exampleInputEmail1') Email address
-                        input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
-                        small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
+                        label(for='input-name') Name
+                        input#input-name.form-control(name='name',type='text', aria-describedby='nameHelp', placeholder='Enter rule name', value='Out (local)')
+                        small#ruleHelp.form-text.text-muted Please name your rule
                     .form-group
-                        label(for='exampleInputPassword1') Password
-                        input#exampleInputPassword1.form-control(type='password', placeholder='Password')
+                        label(for='input-name') Description
+                        input#input-name.form-control(name='desc',type='text', value='Send push message when someone go out') 
                     .form-group
-                        label(for='exampleSelect1') Example select
-                        select#exampleSelect1.form-control
-                            option 1
-                            option 2
-                            option 3
-                            option 4
-                            option 5
+                        label(for='input-severity') Severity
+                        select#input-severity.form-control(name='severity')
+                            option information
+                            option warning
+                            option fatal
                     .form-group
-                        label(for='exampleSelect2') Example multiple select
-                        select#exampleSelect2.form-control(multiple='')
-                            option 1
-                            option 2
-                            option 3
-                            option 4
-                            option 5
+                        label(for='input-timezone') Time zone
+                        select#input-timezone.form-control(name='timezone')
+                            option -12
+                            option -11
+                            option -10
+                            option -9
+                            option -8
+                            option -7
+                            option -6
+                            option -5
+                            option -4
+                            option -3
+                            option -2
+                            option -1
+                            option 0
+                            option +1
+                            option +2
+                            option +3
+                            option +4
+                            option +5
+                            option +6
+                            option +7
+                            option +8
+                            option(selected) +9
+                            option +10
+                            option +11
+                            option +12
                     .form-group
-                        label(for='exampleTextarea') Example textarea
-                        textarea#exampleTextarea.form-control(rows='3')
+                        label(for='input-trigger') Trigger
+                        textarea#input-trigger.form-control(rows='3', name='trigger')
+                            |{"agent":"sensorValue","type":"onoff","method":{"name":"Changed","id":"changed","params":{"from":"0","to":"1","target":{"type":"gateway","id":"b827eb3460e4","sensors":["b827eb3460e4-0-ultra"]}}},"filter":{"type":["series"],"gateway":"*","sensor":["b827eb3460e4-0-ultra"]}}
                     .form-group
-                        label(for='exampleInputFile') File input
-                        input#exampleInputFile.form-control-file(type='file', aria-describedby='fileHelp')
-                        small#fileHelp.form-text.text-muted
-                    fieldset.form-group
-                        legend Radio buttons
-                        .form-check
-                            label.form-check-label
-                                input#optionsRadios1.form-check-input(type='radio', name='optionsRadios', value='option1', checked='')
-                        .form-check
-                            label.form-check-label
-                                input#optionsRadios2.form-check-input(type='radio', name='optionsRadios', value='option2')
-                        .form-check.disabled
-                            label.form-check-label
-                                input#optionsRadios3.form-check-input(type='radio', name='optionsRadios', value='option3', disabled='')
-                    .form-check
-                        label.form-check-label
-                            input.form-check-input(type='checkbox')
+                        label(for='input-condition') Condition
+                        textarea#input-condition.form-control(rows='3', name='conditions')
+                            |[[]]
+                    .form-group
+                        label(for='input-action') Action
+                        textarea#input-action.form-control(rows='3', name='actions')
+                            |[[{"agent":"dataPush","type":"dataPush","method":{"name":"push","id":"push","params":{"url":"http://radiant-caverns-89285.herokuapp.com/api/trigger/1/OUT"}}}]]
+                    .form-group
+                        label(for='input-enabled') Status
+                        select#input-enabled.form-control(name='status')
+                            option activated
+                            option deactivated
+                    .form-group
+                        label(for='input-template') Use only as template
+                        select#input-template.form-control(name='template', disabled)
+                            option false
+                            option true
                     button.btn.btn-primary(type='submit') Submit
         br
         p
