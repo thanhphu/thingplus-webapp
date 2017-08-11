@@ -60,20 +60,13 @@ router.all(forwardAddr + '*', function (req, res, next) {
   var options = {
     url: auth.thingPlus.baseUri + functionName,
     auth: {
-      bearer: req.session.token
+      bearer: "" //req.session.token
     },
     json: true,
     method: req.method,
     body: req.body
   }
-  request(options, function (error, message, body) {
-    if (error) {
-      res.sendStatus(400);
-      return;
-    }
-    res.json(body.data);
-    res.end();
-  })
+  request(options).pipe(res)
 });
 
 // Triggered when people going in or out of a car 
