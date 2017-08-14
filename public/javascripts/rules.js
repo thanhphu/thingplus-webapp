@@ -5,7 +5,7 @@ function loadRules() {
         $("tbody").empty();
         var tbl_body = document.createElement("tbody");
         var odd_even = false;
-        $.each(data, function () {
+        $.each(data.data, function () {
             var tbl_row = tbl_body.insertRow();
             tbl_row.className = odd_even ? "odd" : "even";
             $.each(this, function (k, v) {

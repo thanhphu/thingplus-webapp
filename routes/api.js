@@ -60,7 +60,7 @@ router.all(forwardAddr + '*', function (req, res, next) {
   var options = {
     url: auth.thingPlus.baseUri + functionName,
     auth: {
-      bearer: "" //req.session.token
+      bearer: req.session.token
     },
     json: true,
     method: req.method,
