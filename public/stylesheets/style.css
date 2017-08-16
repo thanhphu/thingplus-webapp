@@ -1,6 +1,10 @@
 body {
-    padding: 50px;
+    padding: 20px;
     font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    padding-left: 10px;
 }
 
 #newtrain {
