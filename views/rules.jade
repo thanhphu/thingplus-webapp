@@ -12,11 +12,11 @@ block content
                     strong Failure
                     | Rule could not be added
         div#accordion
-            h2 Your active rules
+            h2 Your active templates
             div
                 p
                     a.btn.refresh-button(href='#', onclick='javascript:loadRules();') Refresh
-                table#rules-table.table.table-striped.table-bordered.table-hover
+                table#templates-table.table.table-striped.table-bordered.table-hover
                     thead
                         tr
                             th Template
@@ -30,8 +30,26 @@ block content
                             th Trigger
                             th Actions
                             th Severity
-                            th -
-                            th -                    
+            h2 Your active rules
+            div
+                p
+                    a.btn.refresh-button(href='#', onclick='javascript:loadRules();') Refresh
+                table#rules-table.table.table-striped.table-bordered.table-hover
+                    thead
+                        tr
+                            th ID
+                            th Severity
+                            th Service
+                            th Time
+                            th Timezone
+                            th User
+                            th Trigger
+                            th Name
+                            th Site
+                            th Status
+                            th Conditions
+                            th Actions
+                            th Last active
             h2 Add new rule
             div
                 form(method='POST')

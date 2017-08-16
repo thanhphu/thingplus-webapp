@@ -3,10 +3,6 @@ body {
     font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-    color: #00B7FF;
-}
-
 #newtrain {
     fill: white;
     color: #228B22;
@@ -15,7 +11,7 @@ a {
     padding: 5px;
     margin-bottom: 10px;
     border: 1px solid #228B22;
-    width: 300px;
+    width: 100%;
 }
 
 ul.train {
@@ -30,15 +26,37 @@ li#draggable {
     border: 1px solid #00B7FF;
     margin: 5px;
     padding: 5px;
-    width: 300px;
+    width: 100%;
+    display: inline-block;
+    background-image: url('/images/subway.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-blend-mode: lighten;
+}
+
+.cars {
+    text-align: center;
+    padding-left: 0;
 }
 
 .car {
     margin: 5px;
-    padding: 5px;
+    padding: 10px 5px 5px 5px;
     margin-bottom: 10px;
     list-style-type: none;
-    border: 1px solid #D23B3B;
+    border: none;
+    display: inline-block;    
+    width: 200px;
+    height: 70px;
+    background-image: url('/images/car.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: lighten;
+    color: #000000;
+}
+
+.crowded {
+    border: 1px solid #D8402B;
 }
 
 .newcar {
@@ -49,13 +67,15 @@ li#draggable {
     border: 1px solid #228B22;
 }
 
-#rules-table td {
+#rules-table td,
+#templates-table td {
     max-width: 150px;
     white-space: nowrap;
     overflow: hidden;
 }
 
-#rules-table td:hover {
+#rules-table td:hover,
+#templates-table td:hover {
     white-space: pre-wrap;
     max-width: initial;
 }

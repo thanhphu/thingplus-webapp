@@ -14,8 +14,11 @@ function loadCars(trainId) {
                     for (i = 0; i < train.cars.length; i++) {
                         carId = train.cars[i];
                         count = train.counts[i];
+                        var carClass = "<li class='car'>";
+                        if (count > 2)
+                            carClass = "<li class='car crowded'>";
                         $('#cars' + trainId)
-                            .append("<li class='car'>" +
+                            .append(carClass +
                             "<a href='#'>Car " + (i + 1) + ":" + count + "</a>" +
                             "</li>");
                     }
@@ -36,7 +39,6 @@ function loadTrains() {
             trains.forEach((item) => {
                 $('#trains')
                     .append("<li>" +
-                    "<span class='glyphicon glyphicon-blackboard' aria-hidden='true'></span>" +
                     item.name +
                     "<ul id='cars" + item._id + "' class='cars'></ul>" +
                     "</li>");
@@ -47,13 +49,10 @@ function loadTrains() {
             });
         }
     });
-    setTimeout(loadTrains, reloadTimeout);
+    // setTimeout(loadTrains, reloadTimeout);
 }
 
 $(function () {
-    $(".cars").sortable({
-        revert: true
-    });
     $("#trains").sortable({
         revert: true
     });

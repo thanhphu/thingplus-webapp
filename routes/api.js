@@ -24,7 +24,7 @@ function initDb() {
     trains = db.addCollection(dbNames.trains);
 
     trains.insert({ _id: 1000, name: "신림-성수", cars: [2000, 2001, 2002], isRunning: true });
-    trains.insert({ _id: 1002, name: "잠실-을지로3가", cars: [], isRunning: false });
+    trains.insert({ _id: 1002, name: "잠실-을지로3가", cars: [2003, 2004, 2005], isRunning: false });
     trains.insert({ _id: 1004, name: "홍대입구-서울대입구", cars: [], isRunning: false });
   }
   cars = db.getCollection(dbNames.cars);
@@ -34,6 +34,9 @@ function initDb() {
     cars.insert({ _id: 2000, sensors: [1, 2, 3, 4], count: 0 });
     cars.insert({ _id: 2001, sensors: [5, 6, 7, 8], count: 0 });
     cars.insert({ _id: 2002, sensors: [9, 10, 11, 12], count: 0 });
+    cars.insert({ _id: 2003, sensors: [], count: 0 });
+    cars.insert({ _id: 2004, sensors: [], count: 0 });
+    cars.insert({ _id: 2005, sensors: [], count: 0 });
   }
 }
 
