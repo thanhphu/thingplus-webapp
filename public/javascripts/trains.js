@@ -49,7 +49,7 @@ function loadTrains() {
             });
         }
     });
-    // setTimeout(loadTrains, reloadTimeout);
+    setTimeout(loadTrains, reloadTimeout);
 }
 
 $(function () {
