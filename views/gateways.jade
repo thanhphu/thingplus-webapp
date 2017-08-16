@@ -3,7 +3,21 @@ extends layout
 block content
     div.container-fluid        
         p Your active gateways
-        div#gateways
+        table#gateways-table.table.table-striped.table-bordered.table-hover
+            thead
+                tr
+                    th Time
+                    th Service
+                    th ID
+                    th Report Interval
+                    th Model
+                    th Last active
+                    th Device models
+                    th Site
+                    th Status
+                    th Name
+                    th Devices
+                    th Sensors
         p
         a.btn.btn-primary(href='#', onclick='history.back()') Go back
     script(src='/javascripts/gateways.js')

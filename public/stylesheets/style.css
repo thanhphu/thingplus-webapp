@@ -68,14 +68,16 @@ li#draggable {
 }
 
 #rules-table td,
-#templates-table td {
+#templates-table td,
+#gateways-table td {
     max-width: 150px;
     white-space: nowrap;
     overflow: hidden;
 }
 
 #rules-table td:hover,
-#templates-table td:hover {
+#templates-table td:hover,
+#gateways-table td:hover {
     white-space: pre-wrap;
     max-width: initial;
 }
