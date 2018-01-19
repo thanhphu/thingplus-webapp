@@ -1,10 +1,10 @@
+'use strict';
 const auth = require('../auth');
 const express = require('express');
-const loki = require('lokijs');
-const request = require("request");
-const session = require('../session');
+const Loki = require('lokijs');
+const request = require('request');
 
-var db = new loki("trains.db", {
+var db = new Loki('trains.db', {
   autoload: true,
   autoloadCallback: initDb,
   autosave: true,
@@ -12,8 +12,8 @@ var db = new loki("trains.db", {
 });
 const router = express.Router();
 const dbNames = {
-  trains: "trains",
-  cars: "cars",
+  trains: 'trains',
+  cars: 'cars',
 };
 var trains, cars;
 
@@ -23,9 +23,9 @@ function initDb() {
   if (trains === null) {
     trains = db.addCollection(dbNames.trains);
 
-    trains.insert({ _id: 1000, name: "신림-성수", cars: [2000, 2001, 2002], isRunning: true });
-    trains.insert({ _id: 1002, name: "잠실-을지로3가", cars: [2003, 2004, 2005], isRunning: false });
-    trains.insert({ _id: 1004, name: "홍대입구-서울대입구", cars: [], isRunning: false });
+    trains.insert({ _id: 1000, name: '신림-성수', cars: [2000, 2001, 2002], isRunning: true });
+    trains.insert({ _id: 1002, name: '잠실-을지로3가', cars: [2003, 2004, 2005], isRunning: false });
+    trains.insert({ _id: 1004, name: '홍대입구-서울대입구', cars: [], isRunning: false });
   }
   cars = db.getCollection(dbNames.cars);
   if (cars === null) {
@@ -52,13 +52,13 @@ initDb();
 //   }
 // });
 
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   res.redirect('/');
 });
 
 // forward all requests to /api/forward to thing+
 const forwardAddr = '/forward/';
-router.all(forwardAddr + '*', function (req, res, next) {
+router.all(forwardAddr + '*', function (req, res) {
   var functionName = req.url.substring(forwardAddr.length);
   var options = {
     url: auth.thingPlus.baseUri + functionName,
@@ -68,19 +68,19 @@ router.all(forwardAddr + '*', function (req, res, next) {
     json: true,
     method: req.method,
     body: req.body
-  }
-  request(options).pipe(res)
+  };
+  request(options).pipe(res);
 });
 
 // Triggered when people going in or out of a car 
-router.post('/trigger/:sensorId/:type', function (req, res, next) {
-  var result = cars.find({ 'sensors': { '$contains': parseInt(req.params.sensorId, 10) } })
+router.post('/trigger/:sensorId/:type', function (req, res) {
+  var result = cars.find({ 'sensors': { '$contains': parseInt(req.params.sensorId, 10) } });
   if (result.length === 1) {
-    if (req.params.type === "IN") {
+    if (req.params.type === 'IN') {
       result[0].count++;
       res.status(204).end();
       return;
-    } else if (req.params.type === "OUT") {
+    } else if (req.params.type === 'OUT') {
       if (result[0].count > 0) {
         result[0].count--;
       }
@@ -92,14 +92,14 @@ router.post('/trigger/:sensorId/:type', function (req, res, next) {
 });
 
 // Triggered when people going in or out of a car 
-router.post('/trigger', function (req, res, next) {
+router.post('/trigger', function (req, res) {
   var result = cars.find({ 'sensors': { '$contains': parseInt(req.body.sensorId, 10) } })
   if (result.length === 1) {
-    if (req.body.type === "IN") {
+    if (req.body.type === 'IN') {
       result[0].count++;
       res.status(204).end();
       return;
-    } else if (req.body.type === "OUT") {
+    } else if (req.body.type === 'OUT') {
       if (result[0].count > 0) {
         result[0].count--;
       }
@@ -112,8 +112,8 @@ router.post('/trigger', function (req, res, next) {
 
 
 // Query sensors inside a train car
-router.get('/sensors/:carId', function (req, res, next) {
-  var result = cars.find({ '_id': parseInt(req.params.carId, 10) })
+router.get('/sensors/:carId', function (req, res) {
+  var result = cars.find({ '_id': parseInt(req.params.carId, 10) });
   if (result.length === 1) {
     console.log(result);
     res.json(result[0].sensors);
@@ -123,7 +123,7 @@ router.get('/sensors/:carId', function (req, res, next) {
 });
 
 // edit sensor, move it to new car
-router.post('/sensor', function (req, res, next) {
+router.post('/sensor', function (req, res) {
   deleteSensor(req, res, false);
   createSensor(req, res, true);
 });

@@ -1,3 +1,4 @@
+'use strict';
 const apiHost = 'api.testtp.thingbine.com';
 const baseUri = 'https://' + apiHost + '/v2/';
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
         apiHost: apiHost,
         accessTokenUri: '/v2/oauth2/token',
         redirectUri: function (appAddress) {
-            return 'http://' + appAddress + '/callback'
+            return 'http://' + appAddress + '/callback';
         },
         baseUri: baseUri,
         authorizationUri: baseUri + 'oauth2/authorize',        
@@ -15,19 +16,19 @@ module.exports = {
         userUri: baseUri + 'users/me',
         signupUri: 'https://thingplus.net/signup/',
         scopes: [
-            "user-profile",
-            "user-profile-read",
-            "gateway",
-            "gateway-read",
-            "gateway-update",
-            "timeline-read",
-            "tag",
-            "tag-read",
-            "rule",
-            "rule-read",
-            "service-read",
-            "site-read",
-            "billing-read"
+            'user-profile',
+            'user-profile-read',
+            'gateway',
+            'gateway-read',
+            'gateway-update',
+            'timeline-read',
+            'tag',
+            'tag-read',
+            'rule',
+            'rule-read',
+            'service-read',
+            'site-read',
+            'billing-read'
         ]
     }
 }

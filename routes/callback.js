@@ -1,33 +1,48 @@
+'use strict';
 const auth = require('../auth');
 const express = require('express');
-const http = require("https");
-const querystring = require('querystring');
-const request = require("request");
+const http = require('https');
+const request = require('request');
 const session = require('../session');
 const router = express.Router();
 
 router.use(session);
 
-/* GET callback page */
-router.get('/', function (req, response, next) {
+function saveUserName(token, req, res) {
     var options = {
-        "method": "POST",
-        "hostname": auth.thingPlus.apiHost,
-        "port": null,
-        "path": auth.thingPlus.accessTokenUri,
-        "headers": {
-            "content-type": "application/json"
+        url: auth.thingPlus.userUri,
+        auth: {
+            bearer: req.session.token
+        },
+        json:true,
+    };
+    request.get(options, function(error, mesage, body) {
+        req.session.userName = body.data.loginId;
+        req.session.save();
+        res.redirect('/');
+    });
+}
+
+/* GET callback page */
+router.get('/', function (req, response) {
+    var options = {
+        'method': 'POST',
+        'hostname': auth.thingPlus.apiHost,
+        'port': null,
+        'path': auth.thingPlus.accessTokenUri,
+        'headers': {
+            'content-type': 'application/json'
         }
     };
 
     var postRequest = http.request(options, function (res) {
         var chunks = [];
 
-        res.on("data", function (chunk) {
+        res.on('data', function (chunk) {
             chunks.push(chunk);
         });
 
-        res.on("end", function () {
+        res.on('end', function () {
             var body = Buffer.concat(chunks).toString();
             var json = JSON.parse(body);
             req.session.token = json.access_token;
@@ -46,19 +61,4 @@ router.get('/', function (req, response, next) {
     postRequest.end();
 });
 
-function saveUserName(token, req, res) {
-    var options = {
-        url: auth.thingPlus.userUri,
-        auth: {
-            bearer: req.session.token
-        },
-        json:true,
-    }
-    request.get(options, function(error, mesage, body) {
-        req.session.userName = body.data.loginId;
-        req.session.save();
-        res.redirect('/');
-    });
-}
-1
 module.exports = router;

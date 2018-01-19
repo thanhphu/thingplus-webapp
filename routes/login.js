@@ -1,3 +1,4 @@
+'use strict';
 const auth = require('../auth');
 const querystring = require('querystring');
 
@@ -13,12 +14,12 @@ router.get('/', function (req, res, next) {
         res.redirect('/');
     } else {
         res.redirect(
-            auth.thingPlus.authorizationUri + "?" +
+            auth.thingPlus.authorizationUri + '?' +
             querystring.stringify({
                 client_id: auth.thingPlus.clientId,
                 response_type: 'code',
                 redirect_uri: auth.thingPlus.redirectUri(req.headers.host)
-            }))
+            }));
     }
 });
 

@@ -1,19 +1,9 @@
+'use strict';
 const express = require('express');
 const session = require('../session');
 const router = express.Router();
 
 router.use(session);
-
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  console.log("Host " + req.headers.host)
-  res.render('index', {
-    title: 'Hello!',
-    host: req.headers.host,
-    user: getUser(req),
-    appName: 'subway-monitoring'
-  });
-});
 
 function getUser(req) {
   if (req.session && req.session.token) {
@@ -26,5 +16,16 @@ function getUser(req) {
     return null;
   }
 }
+
+/* GET home page. */
+router.get('/', function (req, res) {
+  console.log('Host ' + req.headers.host);
+  res.render('index', {
+    title: 'Hello!',
+    host: req.headers.host,
+    user: getUser(req),
+    appName: 'subway-monitoring'
+  });
+});
 
 module.exports = router;

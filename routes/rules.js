@@ -1,3 +1,4 @@
+'use strict';
 const auth = require('../auth');
 const request = require("request");
 const express = require('express');
