@@ -1,5 +1,5 @@
 'use strict';
-const apiHost = 'api.testtp.thingbine.com';
+const apiHost = 'api.thingplus.net';
 const baseUri = 'https://' + apiHost + '/v2/';
 module.exports = {
     thingPlus: {
